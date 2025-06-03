@@ -1,8 +1,6 @@
-- title: "Home"
-  url: "/"
-- title: "Resume"
-  url: "/resume/"
-- title: "Publications"
-  url: "/publications/"
-- title: "Contact"
-  url: "/contact/"
+# Site navigation links
+
+- title:
+  url:
+  excerpt:
+  image:
