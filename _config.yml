@@ -1,0 +1,16 @@
+title: "Athanasios (Nassos) Galiopoulos"
+email: NassosG@outlook.com
+description: >-
+  Catalyst for Clarity, Operational Excellence & Vision-Driven Innovation.
+  Leader in IT, Research Computing & AI-Cybersecurity.
+baseurl: ""
+url: "https://nassosg.github.io"
+theme: minima
+minima:
+  skin: auto
+  social_links:
+    - { platform: github, user_url: "https://github.com/nassosg" }
+    # Add more social links if needed
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
