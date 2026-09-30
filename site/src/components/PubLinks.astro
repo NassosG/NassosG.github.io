@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  data: CollectionEntry<'publications'>['data'];
+}
+
+const { data } = Astro.props;
+const links = [
+  data.doi && { href: `https://doi.org/${data.doi}`, label: 'DOI' },
+  data.pdf && { href: data.pdf, label: 'PDF' },
+  data.url && { href: data.url, label: 'Link' },
+].filter(Boolean) as { href: string; label: string }[];
+---
+
+<p class="meta">
+  <em>{data.venue}</em>, {data.year}
+  {data.status !== 'published' && <span class="muted"> · {data.status}</span>}
+  {
+    links.map((l) => (
+      <>
+        {' · '}
+        <a href={l.href}>{l.label}</a>
+      </>
+    ))
+  }
+</p>

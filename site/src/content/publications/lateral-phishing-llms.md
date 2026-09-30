@@ -5,3 +5,7 @@ venue: 'IEEE Access'
 year: 2025
 doi: '10.1109/ACCESS.2025.3555500'
 ---
+
+Examines how large language models can be used to conduct and detect sophisticated phishing
+campaigns at scale inside a large organization, bridging academic research and operational
+cybersecurity practice in enterprise environments.

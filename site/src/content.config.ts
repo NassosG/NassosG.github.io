@@ -12,6 +12,8 @@ const publications = defineCollection({
     status: z.enum(['published', 'under review', 'preprint']).default('published'),
     doi: z.string().optional(),
     pdf: z.string().optional(),
+    url: z.string().url().optional(),
+    draft: z.boolean().default(false),
   }),
 });
 

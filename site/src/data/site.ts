@@ -10,11 +10,11 @@ export const site = {
     'Nassos Galiopoulos is Executive Director of Enterprise Architecture at The Texas A&M University System and a Ph.D. candidate in Cybersecurity and AI at UTSA.',
   url: 'https://limur.ai',
   location: 'Texas',
-  email: '', // TODO: confirm which address to publish
+  email: 'NassosG@outlook.com',
   links: {
     linkedin: 'https://www.linkedin.com/in/nassosg',
-    scholar: '', // TODO
-    orcid: '', // TODO
+    scholar: 'https://scholar.google.com/citations?user=AH-9jOwAAAAJ',
+    orcid: 'https://orcid.org/0000-0002-6747-5938',
     github: 'https://github.com/NassosG',
   },
 };
