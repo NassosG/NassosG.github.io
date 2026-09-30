@@ -1,31 +1,40 @@
 ---
 import Base from '../layouts/Base.astro';
-import { stanzas, archiveUrl } from '../data/ithaka';
+import { stanzas, archiveUrl, valassopouloUrl } from '../data/ithaka';
 ---
 
-<Base title="Ithaka" description="C. P. Cavafy’s Ithaka, in the original Greek, with lines from the Keeley–Sherrard translation.">
+<Base title="Ithaka" description="C. P. Cavafy’s Ithaka in the original Greek, with links to English translations.">
   <h1>Ithaka</h1>
   <p class="lede">My favorite poem. I believe it is all about the journey.</p>
 
-  <div class="poem" role="group" aria-label="Ithaka by C. P. Cavafy, Greek original with English excerpt">
-    <p class="col-head" lang="el">Ιθάκη</p>
-    <p class="col-head en">English <span class="muted">(excerpt)</span></p>
+  <div class="poem" lang="el">
+    <p class="title">Ιθάκη</p>
     {
-      stanzas.map((stanza, i) => (
-        <>
-          {i > 0 && <div class="gap" aria-hidden="true" />}
-          {stanza.map((line) => (
+      stanzas.map((stanza) => (
+        <p class="stanza">
+          {stanza.map((line, i) => (
             <>
-              <p class="el" lang="el">{line.el}</p>
-              <p class={line.en ? 'en' : 'en empty'} lang="en">{line.en ?? ''}</p>
+              {i > 0 && <br />}
+              {line.el}
             </>
           ))}
-        </>
+        </p>
       ))
     }
-    <p class="el signature" lang="el">Κωνσταντίνος Π. Καβάφης</p>
-    <p class="en empty"></p>
+    <p class="signature">Κωνσταντίνος Π. Καβάφης</p>
   </div>
+
+  <h2>In English</h2>
+  <ul class="plain links">
+    <li>
+      <a href={archiveUrl}>Read “Ithaka” in English</a> in the Cavafy Archive, in the translation by Edmund
+      Keeley and Philip Sherrard.
+    </li>
+    <li>
+      <a href={valassopouloUrl}>See the first English translation</a>, handwritten by George Valassopoulo, in the
+      Cavafy Archive.
+    </li>
+  </ul>
 
   <h2>Sources</h2>
   <ul class="plain sources">
@@ -34,93 +43,50 @@ import { stanzas, archiveUrl } from '../data/ithaka';
       manuscripts are held by the <a href={archiveUrl}>Cavafy Archive, Onassis Foundation</a>.
     </li>
     <li>
-      <strong>English excerpt:</strong> C. P. Cavafy, “Ithaka,” in <cite>C. P. Cavafy: Collected Poems</cite>,
+      <strong>English translation:</strong> C. P. Cavafy, “Ithaka,” in <cite>C. P. Cavafy: Collected Poems</cite>,
       rev. ed., trans. Edmund Keeley and Philip Sherrard, ed. George Savidis (Princeton University Press, 1992).
-      Translation © 1975, 1992 Edmund Keeley and Philip Sherrard. Quoted in part.
     </li>
     <li>
       <strong>First English translation:</strong> C. P. Cavafy, “Ithaca,” trans. George Valassopoulo,{' '}
-      <cite>The Criterion</cite> 2, no. 8 (July 1924): 431–432. Published by T. S. Eliot with Cavafy’s approval.
+      <cite>The Criterion</cite> 2, no. 8 (July 1924): 431–432.
     </li>
     <li>
       <strong>On the home page:</strong> “Ask that your way be long” is from another English translation of
-      the same poem.
+      the poem.
     </li>
   </ul>
 </Base>
 
 <style>
   .poem {
-    display: grid;
-    grid-template-columns: max-content 1fr;
-    column-gap: 3rem;
-    /* Wider than the text column so each line of verse stays on one row. */
-    width: min(50rem, calc(100vw - 2 * var(--space)));
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 2rem 0 1rem;
+    margin: 2.5rem 0 1rem;
     font-family: var(--serif);
-    font-size: 1.0625rem;
-    line-height: 1.55;
+    font-size: 1.125rem;
+    line-height: 1.6;
   }
 
-  .poem p {
-    margin: 0;
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
-  .col-head {
-    font-family: var(--sans);
-    font-size: 0.8125rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--accent);
-    padding-bottom: 0.75rem;
-  }
-
-  .en {
-    font-style: italic;
-    color: var(--muted);
-  }
-
-  .col-head.en {
-    font-style: normal;
-  }
-
-  .gap {
-    grid-column: 1 / -1;
-    height: 1.1em;
+  .stanza {
+    margin: 0 0 1.4em;
   }
 
   .signature {
-    margin-top: 1.25rem !important;
+    margin-top: 2rem;
     font-family: var(--sans);
     font-size: 0.9375rem;
     color: var(--muted);
   }
 
+  .links li,
   .sources li {
-    padding: 0.5rem 0;
-    font-size: 0.9375rem;
+    padding: 0.4rem 0;
   }
 
-  /* Phones: Greek first, each English line tucked under its Greek line. */
-  @media (max-width: 40rem) {
-    .poem {
-      grid-template-columns: 1fr;
-      width: auto;
-      left: auto;
-      transform: none;
-    }
-
-    .col-head.en,
-    .en.empty {
-      display: none;
-    }
-
-    .en {
-      margin-bottom: 0.35rem;
-      font-size: 0.9375rem;
-    }
+  .sources li {
+    font-size: 0.9375rem;
   }
 </style>
