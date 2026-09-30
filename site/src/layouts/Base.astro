@@ -17,6 +17,7 @@ const personLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: site.name,
+  alternateName: ['Athanasios Galiopoulos', site.fullName],
   url: site.url,
   jobTitle: site.role,
   worksFor: { '@type': 'Organization', name: site.org },
@@ -45,7 +46,9 @@ const personLd = {
     <meta property="og:image" content={new URL('/nassos-galiopoulos-headshot.jpg', site.url)} />
     <meta name="twitter:card" content="summary" />
 
+    <meta name="author" content={site.name} />
     <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
+    <slot name="head" />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
