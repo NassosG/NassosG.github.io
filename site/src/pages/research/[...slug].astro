@@ -11,9 +11,28 @@ export async function getStaticPaths() {
 
 const { pub } = Astro.props;
 const { Content } = await render(pub);
+const { data } = pub;
+// Highwire Press tags, read by Google Scholar.
+const authors = data.authors
+  .replace(/,?\s*&\s*/g, ', ')
+  .split(/(?<=\.),\s+/)
+  .map((a) => a.trim().replace(/,$/, ''))
+  .filter(Boolean);
+const [firstPage, lastPage] = (data.pages ?? '').split(/[–-]/);
 ---
 
-<Base title={pub.data.title} description={`${pub.data.venue}, ${pub.data.year}. ${pub.data.authors}`}>
+<Base title={data.title} description={`${data.venue}, ${data.year}. ${data.authors}`}>
+  <Fragment slot="head">
+    <meta name="citation_title" content={data.title} />
+    {authors.map((a) => <meta name="citation_author" content={a} />)}
+    <meta name="citation_publication_date" content={String(data.year)} />
+    <meta name="citation_journal_title" content={data.venue} />
+    {data.volume && <meta name="citation_volume" content={data.volume} />}
+    {firstPage && <meta name="citation_firstpage" content={firstPage} />}
+    {lastPage && <meta name="citation_lastpage" content={lastPage} />}
+    {data.doi && <meta name="citation_doi" content={data.doi} />}
+    {data.pdf && <meta name="citation_pdf_url" content={new URL(data.pdf, Astro.site)} />}
+  </Fragment>
   <article>
     <h1 class="title">{pub.data.title}</h1>
     <p class="muted">{pub.data.authors}</p>
