@@ -7,7 +7,7 @@ export type Line = { el: string; en?: string };
 export const stanzas: Line[][] = [
   [
     { el: "Σα βγεις στον πηγαιμό για την Ιθάκη,", en: "As you set out for Ithaka" },
-    { el: "να εύχεσαι νάναι μακρύς ο δρόμος,", en: "hope your road is a long one," },
+    { el: "να εύχεσαι νάναι μακρύς ο δρόμος,", en: "hope the voyage is a long one," },
     { el: "γεμάτος περιπέτειες, γεμάτος γνώσεις.", en: "full of adventure, full of discovery." },
     { el: "Τους Λαιστρυγόνας και τους Κύκλωπας," },
     { el: "τον θυμωμένο Ποσειδώνα μη φοβάσαι," },
