@@ -1,11 +1,19 @@
 ---
 import Base from '../layouts/Base.astro';
-import { roles, education, recognition } from '../data/experience';
+import {
+  roles,
+  education,
+  recognition,
+  boards,
+  certifications,
+  languages,
+} from '../data/experience';
 ---
 
-<Base title="Experience" description="Twenty years leading technology in higher education and industry.">
+<Base title="Experience" description="Two decades leading technology in higher education and industry.">
   <h1>Experience</h1>
-  <p class="lede">Twenty years turning complex technology into secure, reliable platforms.</p>
+  <p class="lede">Two decades turning complex technology into secure, reliable platforms.</p>
+  <p class="print-hide"><button type="button" class="linkish" onclick="window.print()">Print or save as PDF</button></p>
 
   <ol class="plain">
     {
@@ -29,7 +37,7 @@ import { roles, education, recognition } from '../data/experience';
   </ol>
 
   <h2>Education</h2>
-  <ul class="plain">
+  <ul class="plain facts">
     {
       education.map((e) => (
         <li>
@@ -39,16 +47,24 @@ import { roles, education, recognition } from '../data/experience';
     }
   </ul>
 
-  <h2>Recognition & boards</h2>
-  <ul>
-    {recognition.map((r) => <li>{r}</li>)}
-  </ul>
+  <h2>Recognition</h2>
+  <ul class="plain facts">{recognition.map((r) => <li>{r}</li>)}</ul>
+
+  <h2>Boards & advisory</h2>
+  <ul class="plain facts">{boards.map((b) => <li>{b}</li>)}</ul>
+
+  <h2>Certifications</h2>
+  <ul class="plain facts">{certifications.map((c) => <li>{c}</li>)}</ul>
+
+  <h2>Languages</h2>
+  <p>{languages.join(' · ')}</p>
 </Base>
 
 <style>
   .role {
     padding: 1.25rem 0;
     border-top: 1px solid var(--rule);
+    break-inside: avoid;
   }
 
   .role > p {
@@ -58,5 +74,21 @@ import { roles, education, recognition } from '../data/experience';
   .role ul {
     margin: 0;
     padding-left: 1.25rem;
+  }
+
+  .facts li {
+    padding: 0.2rem 0;
+  }
+
+  .linkish {
+    font: inherit;
+    font-size: 0.9375rem;
+    color: var(--accent);
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
   }
 </style>

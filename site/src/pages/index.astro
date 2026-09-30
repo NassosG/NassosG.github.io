@@ -1,27 +1,95 @@
 ---
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import Questions from '../components/Questions.astro';
 import { site } from '../data/site';
+import headshot from '../assets/headshot.webp';
 ---
 
 <Base>
-  <h1>{site.name}</h1>
-  <p class="lede">{site.tagline}</p>
+  <section class="intro">
+    <Image
+      src={headshot}
+      alt={`Portrait of ${site.name}`}
+      width={240}
+      densities={[1, 2]}
+      loading="eager"
+      class="portrait"
+    />
+    <div>
+      <h1>{site.name}</h1>
+      <p class="role">{site.role}<br /><span class="muted">{site.org}</span></p>
+    </div>
+  </section>
 
-  <!-- TODO: replace with a bio in your own words. -->
-  <p>
-    I lead technology at the University of Texas at San Antonio as Chief Technology Officer and
-    Deputy CIO, where I work on research computing, cybersecurity and enterprise platforms. I am
-    also a Ph.D. candidate researching how large language models can make security operations
-    faster and more adaptive.
-  </p>
-  <p>
-    I believe the best systems — and the best teams — do more with less. That idea gives this site
-    its name: <em>limur</em>, less is more.
-  </p>
+  <p class="lede">Hellenic by birth. Texan by choice. Architect by discipline.</p>
 
-  <h2>Now</h2>
-  <ul>
-    <li>Leading technology strategy at UTSA.</li>
-    <li>Researching LLM-driven cybersecurity. <a href="/research/">Publications →</a></li>
+  <p>Three things I’ve learned in two decades of leading technology in higher education:</p>
+  <ul class="lessons">
+    <li>The campus closest to the problem usually has the best answer. Listen first.</li>
+    <li>AI will not replace judgment. It will expose whether you had any.</li>
+    <li>The point of architecture is not to be admired. It is to be load-bearing.</li>
   </ul>
+  <p>
+    Before The Texas A&amp;M University System, I spent seven years as CTO and Deputy CIO at UT San
+    Antonio, where the work that mattered most was the work nobody noticed. I am also a Ph.D.
+    candidate in Cybersecurity and AI at UTSA. <a href="/experience/">Experience →</a>
+  </p>
+
+  <h2>Questions I work on</h2>
+  <Questions />
+  <p class="more"><a href="/research/">Research →</a></p>
+
+  <h2>Why limur</h2>
+  <p>
+    <em>Limur</em> is short for <strong>less is more</strong>: fewer systems, clearer boundaries,
+    decisions you can explain. It is also the name of my research on LLM-driven cybersecurity
+    playbooks.
+  </p>
 </Base>
+
+<style>
+  .intro {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .portrait {
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 25%;
+    flex-shrink: 0;
+  }
+
+  .intro h1 {
+    margin-bottom: 0.25rem;
+  }
+
+  .role {
+    margin: 0;
+  }
+
+  .lessons {
+    padding-left: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .lessons li {
+    margin-bottom: 0.25rem;
+  }
+
+  .more {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 30rem) {
+    .intro {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

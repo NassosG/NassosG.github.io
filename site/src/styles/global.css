@@ -127,3 +127,32 @@ hr {
   background: var(--bg);
   padding: 0.5rem 1rem;
 }
+
+@media print {
+  :root {
+    --bg: #fff;
+    --fg: #000;
+    --muted: #444;
+    --rule: #ccc;
+    --accent: #000;
+  }
+
+  header nav,
+  footer,
+  .skip,
+  .print-hide {
+    display: none;
+  }
+
+  body {
+    font-size: 10.5pt;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  h2 {
+    margin-top: 1.5rem;
+  }
+}

@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getThoughts, formatDate } from '../../lib/thoughts';
+
+const posts = await getThoughts();
+---
+
+<Base title="Thoughts" description="Short essays on architecture, AI, and judgment.">
+  <h1>Thoughts</h1>
+  <p class="lede">Short essays on architecture, AI, and judgment. <a href="/rss.xml">RSS</a></p>
+
+  {
+    posts.length === 0 ? (
+      <p class="muted">Nothing published yet.</p>
+    ) : (
+      <ol class="plain posts">
+        {posts.map((p) => (
+          <li>
+            <h3><a href={`/thoughts/${p.id}/`}>{p.data.title}</a></h3>
+            <p class="muted">
+              <time datetime={p.data.date.toISOString()}>{formatDate(p.data.date)}</time> · {p.data.description}
+            </p>
+          </li>
+        ))}
+      </ol>
+    )
+  }
+</Base>
+
+<style>
+  .posts li {
+    padding: 1rem 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .posts p {
+    margin: 0.25rem 0 0;
+  }
+</style>

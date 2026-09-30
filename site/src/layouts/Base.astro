@@ -18,7 +18,10 @@ const personLd = {
   '@type': 'Person',
   name: site.name,
   url: site.url,
-  jobTitle: 'Chief Technology Officer',
+  jobTitle: site.role,
+  worksFor: { '@type': 'Organization', name: site.org },
+  alumniOf: ['University of North Texas', 'The University of Texas at San Antonio'],
+  image: new URL('/nassos-galiopoulos-headshot.jpg', site.url).href,
   sameAs: Object.values(site.links).filter(Boolean),
 };
 ---
@@ -33,11 +36,13 @@ const personLd = {
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.ico" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Thoughts" href="/rss.xml" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/nassos-galiopoulos-headshot.jpg', site.url)} />
     <meta name="twitter:card" content="summary" />
 
     <script type="application/ld+json" set:html={JSON.stringify(personLd)} />

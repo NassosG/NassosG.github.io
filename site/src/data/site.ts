@@ -1,15 +1,18 @@
 // Single source of truth for identity and navigation.
-// TODO: confirm name, tagline and links.
 export const site = {
   name: 'Nassos Galiopoulos',
-  title: 'Nassos Galiopoulos',
-  tagline: 'Technology executive and AI & cybersecurity researcher.',
+  fullName: 'Athanasios (Nassos) Galiopoulos',
+  role: 'Executive Director of Enterprise Architecture',
+  org: 'The Texas A&M University System',
+  tagline: 'Enterprise architect, technology executive and AI & cybersecurity researcher.',
+  motto: 'Socratic questions, Spartan discipline, Olympic delivery.',
   description:
-    'Nassos Galiopoulos — Chief Technology Officer and Ph.D. researcher in AI and cybersecurity. Less is more.',
+    'Nassos Galiopoulos is Executive Director of Enterprise Architecture at The Texas A&M University System and a Ph.D. candidate in Cybersecurity and AI at UTSA.',
   url: 'https://limur.ai',
-  email: '', // TODO
+  location: 'Texas',
+  email: '', // TODO: confirm which address to publish
   links: {
-    linkedin: '', // TODO
+    linkedin: 'https://www.linkedin.com/in/nassosg',
     scholar: '', // TODO
     orcid: '', // TODO
     github: 'https://github.com/NassosG',
@@ -19,5 +22,14 @@ export const site = {
 export const nav = [
   { href: '/research/', label: 'Research' },
   { href: '/experience/', label: 'Experience' },
+  { href: '/thoughts/', label: 'Thoughts' },
   { href: '/speaking/', label: 'Speaking' },
+  { href: '/contact/', label: 'Contact' },
+];
+
+// The questions that drive the work, shown on the home and research pages.
+export const questions = [
+  'How do we architect a secure enterprise across business, data, applications, AI, and infrastructure while allowing it to evolve?',
+  'How do systems thinking, evidence, bounded autonomy, and human judgment fit together in decisions we can explain and defend?',
+  'What should an AI agent be allowed to do, how do we verify its actions, and how do we prevent fragmented systems and uncontrolled agent growth?',
 ];

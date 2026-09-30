@@ -15,4 +15,14 @@ const publications = defineCollection({
   }),
 });
 
-export const collections = { publications };
+const thoughts = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/thoughts' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { publications, thoughts };
