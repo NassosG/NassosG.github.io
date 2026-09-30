@@ -31,10 +31,10 @@ export function localize(path: string, lang: Lang): string {
 }
 
 /** Where the language switcher should send someone on this page. */
-export function switchTo(url: URL, lang: Lang): string {
+export function switchTo(url: URL, lang: Lang, available?: Lang[]): string {
   const base = basePath(url);
-  if (localizedRoutes.includes(base)) return localize(base, lang);
-  // English-only pages (a paper, a post): go to that section's page in the other language.
+  if (localizedRoutes.includes(base) || available?.includes(lang)) return localize(base, lang);
+  // Pages without that translation (a paper, an untranslated post): go to the section instead.
   const section = localizedRoutes.find((r) => r !== '/' && base.startsWith(r));
   return localize(section ?? '/', lang);
 }

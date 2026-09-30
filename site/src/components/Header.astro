@@ -1,8 +1,9 @@
 ---
 import { profile, navKeys } from '../data/site';
 import { getThoughts } from '../lib/thoughts';
-import { getLang, basePath, localize, switchTo, langs, langMeta, t } from '../i18n';
+import { getLang, basePath, localize, switchTo, langs, langMeta, t, type Lang } from '../i18n';
 
+const { available } = Astro.props as { available?: Lang[] };
 const lang = getLang(Astro.url);
 const base = basePath(Astro.url);
 // Less is more: Thoughts stays out of the menu until something is published.
@@ -30,7 +31,7 @@ const items = navKeys
           l === lang ? (
             <span aria-current="true" title={langMeta[l].name}>{langMeta[l].label}</span>
           ) : (
-            <a href={switchTo(Astro.url, l)} hreflang={l} lang={l} title={langMeta[l].name}>
+            <a href={switchTo(Astro.url, l, available)} hreflang={l} lang={l} title={langMeta[l].name}>
               {langMeta[l].label}
             </a>
           ),
