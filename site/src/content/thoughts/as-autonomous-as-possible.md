@@ -20,6 +20,12 @@ Length, because a single agent can touch process, data, applications, models, an
 in one motion. Depth, because every handoff is a place where intent drifts and accountability thins.
 A safeguard that watches one layer, or one hop, sees only part of the picture.
 
+Beneath both sits a question of ontology: what exists in the enterprise, and how those things
+relate. An agent can only respect a boundary it can name. If we have not agreed on what counts as an
+asset, an identity, sensitive data, or the authority to act, our rules stay ambiguous, and every
+handoff reinterprets them. Nor can we let an agent blur what it observed, what it inferred, and
+what is actually the case. Its confidence rarely tells us which is which.
+
 The discipline it calls for is a familiar one: as autonomous as possible, as bounded as necessary.
 
 Architecture has always worked this way: clear boundaries, real freedom inside them. With agents,
