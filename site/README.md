@@ -20,13 +20,19 @@ item appears once the first post is published. Set `draft: true` to keep a post 
 
 ## Edit everything else
 
+The site is in English (`/`), Greek (`/el/`) and German (`/de/`). Each file below holds all three
+languages side by side, under `en`, `el` and `de`; change the text in each one.
+
 | What | Where |
 |---|---|
 | Name, role, email, links | `src/data/site.ts` |
 | Experience, education, boards, certifications | `src/data/experience.ts` |
 | Speaker bio, topics, talks | `src/data/speaking.ts` |
-| Page text | `src/pages/` |
+| Page text | `src/views/` (one file per page) |
+| Menu and small labels | `src/i18n/index.ts` |
 | Colors and type | `src/styles/global.css` |
+
+Papers and Thoughts posts are written once, in English; the Greek and German pages link to them.
 
 ## Run locally
 
