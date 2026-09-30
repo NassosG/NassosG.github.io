@@ -21,7 +21,7 @@ import {
         <li class="role">
           <h3>{r.title}</h3>
           <p class="muted">
-            {r.org} · {r.period}
+            {r.org}{r.location && `, ${r.location}`} · {r.period}
           </p>
           <p>{r.summary}</p>
           {r.highlights && (
