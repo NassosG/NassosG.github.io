@@ -1,0 +1,135 @@
+---
+import Base from '../layouts/Base.astro';
+import PubLinks from '../components/PubLinks.astro';
+import { site } from '../data/site';
+import { getPublications } from '../lib/publications';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const pubs = await getPublications();
+
+const copy = {
+  en: {
+    title: 'Research',
+    description: 'Research on evidence-grounded attack attribution, AI agents, and LLM-enabled phishing.',
+    lede: 'Ph.D. candidate in Cybersecurity and AI at The University of Texas at San Antonio.',
+    areasTitle: 'Areas of focus',
+    areas: [
+      ['Evidence-grounded attack attribution', 'Mapping system telemetry to MITRE ATT&CK techniques, and separating what evidence was available, what was retrieved, and what the system committed to.'],
+      ['Temporal knowledge graphs for threat intelligence', 'Linking events, entities, and techniques over time so that attributions can be traced back to their evidence.'],
+      ['Commitment across the delegation chain', 'How one system’s decision to commit or withhold shapes the judgment of the next agent downstream.'],
+      ['Bounded autonomy for AI agents', 'As autonomous as possible, as bounded as necessary.'],
+      ['LLM-enabled phishing', 'How large language models change phishing inside large organizations, and how to defend against it.'],
+    ],
+    pubsTitle: 'Publications',
+  },
+  el: {
+    title: 'Έρευνα',
+    description: 'Έρευνα στην τεκμηριωμένη απόδοση επιθέσεων, στους πράκτορες τεχνητής νοημοσύνης και στο phishing με μεγάλα γλωσσικά μοντέλα.',
+    lede: 'Υποψήφιος διδάκτορας Κυβερνοασφάλειας και Τεχνητής Νοημοσύνης στο University of Texas at San Antonio.',
+    areasTitle: 'Πεδία έρευνας',
+    areas: [
+      ['Τεκμηριωμένη απόδοση επιθέσεων', 'Αντιστοίχιση της τηλεμετρίας συστημάτων σε τεχνικές του MITRE ATT&CK, με διάκριση ανάμεσα σε ό,τι ήταν διαθέσιμο, ό,τι ανακτήθηκε και ό,τι τελικά υποστήριξε το σύστημα.'],
+      ['Χρονικοί γράφοι γνώσης για πληροφορίες απειλών', 'Σύνδεση γεγονότων, οντοτήτων και τεχνικών στον χρόνο, ώστε κάθε απόδοση να ανάγεται στα τεκμήριά της.'],
+      ['Δέσμευση κατά μήκος της αλυσίδας ανάθεσης', 'Πώς η απόφαση ενός συστήματος να δεσμευτεί ή να απόσχει επηρεάζει την κρίση του επόμενου πράκτορα.'],
+      ['Οριοθετημένη αυτονομία για πράκτορες ΤΝ', 'Όσο πιο αυτόνομοι γίνεται, όσο πιο οριοθετημένοι χρειάζεται.'],
+      ['Phishing με μεγάλα γλωσσικά μοντέλα', 'Πώς τα μεγάλα γλωσσικά μοντέλα αλλάζουν το phishing μέσα σε μεγάλους οργανισμούς, και πώς αμυνόμαστε.'],
+    ],
+    pubsTitle: 'Δημοσιεύσεις',
+  },
+  de: {
+    title: 'Forschung',
+    description: 'Forschung zu evidenzbasierter Angriffsattribution, KI-Agenten und LLM-gestütztem Phishing.',
+    lede: 'Doktorand in Cybersicherheit und KI an der University of Texas at San Antonio.',
+    areasTitle: 'Forschungsschwerpunkte',
+    areas: [
+      ['Evidenzbasierte Angriffsattribution', 'Zuordnung von Systemtelemetrie zu MITRE-ATT&CK-Techniken – getrennt danach, welche Evidenz verfügbar war, welche abgerufen wurde und worauf sich das System festgelegt hat.'],
+      ['Temporale Wissensgraphen für Threat Intelligence', 'Ereignisse, Entitäten und Techniken über die Zeit verknüpfen, sodass sich jede Zuordnung bis zu ihrer Evidenz zurückverfolgen lässt.'],
+      ['Festlegung entlang der Delegationskette', 'Wie die Entscheidung eines Systems, sich festzulegen oder zurückzuhalten, das Urteil des nächsten Agenten prägt.'],
+      ['Begrenzte Autonomie für KI-Agenten', 'So autonom wie möglich, so begrenzt wie nötig.'],
+      ['LLM-gestütztes Phishing', 'Wie große Sprachmodelle Phishing in großen Organisationen verändern – und wie man sich dagegen schützt.'],
+    ],
+    pubsTitle: 'Publikationen',
+  },
+}[lang];
+---
+
+<Base title={copy.title} description={copy.description}>
+  <h1>{copy.title}</h1>
+  <p class="lede">{copy.lede}</p>
+
+  <h2>{copy.areasTitle}</h2>
+  <dl class="areas">
+    {
+      copy.areas.map(([title, text]) => (
+        <>
+          <dt>{title}</dt>
+          <dd>{text}</dd>
+        </>
+      ))
+    }
+  </dl>
+
+  <h2>{copy.pubsTitle} {lang !== 'en' && <span class="muted note">{t(lang).englishOnly}</span>}</h2>
+  <ol class="plain pubs">
+    {
+      pubs.map((p) => (
+        <li>
+          <h3 lang="en">
+            <a href={`/research/${p.id}/`}>{p.data.title}</a>
+          </h3>
+          <p class="muted">{p.data.authors}</p>
+          <PubLinks data={p.data} lang={lang} />
+        </li>
+      ))
+    }
+  </ol>
+
+  <p class="profiles">
+    <a href={site.links.scholar}>Google Scholar</a> · <a href={site.links.orcid}>ORCID</a>
+  </p>
+</Base>
+
+<style>
+  .areas dt {
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    margin-top: 1rem;
+  }
+
+  .areas dd {
+    margin: 0.25rem 0 0;
+    color: var(--muted);
+  }
+
+  .note {
+    font-family: var(--sans);
+    font-size: 0.9375rem;
+  }
+
+  .pubs li {
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .pubs h3 a {
+    color: var(--fg);
+    text-decoration: none;
+  }
+
+  .pubs h3 a:hover {
+    text-decoration: underline;
+  }
+
+  .pubs p {
+    margin: 0.25rem 0 0;
+  }
+
+  .profiles {
+    margin-top: 1.5rem;
+  }
+</style>

@@ -1,0 +1,131 @@
+---
+import Base from '../layouts/Base.astro';
+import { experience } from '../data/experience';
+import type { Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { roles, education, recognition, boards, certifications, languages } = experience[lang];
+
+const copy = {
+  en: {
+    title: 'Experience',
+    description: '20+ years leading technology in higher education and industry.',
+    lede: '20+ years turning complex technology into secure, reliable platforms.',
+    print: 'Print or save as PDF',
+    education: 'Education',
+    recognition: 'Recognition',
+    boards: 'Boards & advisory',
+    certifications: 'Certifications',
+    languages: 'Languages',
+  },
+  el: {
+    title: 'Εμπειρία',
+    description: 'Πάνω από 20 χρόνια ηγεσίας στην τεχνολογία, στην ανώτατη εκπαίδευση και στη βιομηχανία.',
+    lede: 'Πάνω από 20 χρόνια μετατρέπω σύνθετη τεχνολογία σε ασφαλείς, αξιόπιστες πλατφόρμες.',
+    print: 'Εκτύπωση ή αποθήκευση ως PDF',
+    education: 'Σπουδές',
+    recognition: 'Διακρίσεις',
+    boards: 'Συμβούλια και συμβουλευτικοί ρόλοι',
+    certifications: 'Πιστοποιήσεις',
+    languages: 'Γλώσσες',
+  },
+  de: {
+    title: 'Werdegang',
+    description: 'Über 20 Jahre Technologieführung in Hochschulen und Industrie.',
+    lede: 'Über 20 Jahre, in denen ich komplexe Technologie in sichere, verlässliche Plattformen verwandelt habe.',
+    print: 'Drucken oder als PDF speichern',
+    education: 'Ausbildung',
+    recognition: 'Auszeichnungen',
+    boards: 'Beiräte',
+    certifications: 'Zertifizierungen',
+    languages: 'Sprachen',
+  },
+}[lang];
+---
+
+<Base title={copy.title} description={copy.description}>
+  <h1>{copy.title}</h1>
+  <p class="lede">{copy.lede}</p>
+  <p class="print-hide"><button type="button" class="linkish" onclick="window.print()">{copy.print}</button></p>
+
+  <ol class="plain">
+    {
+      roles.map((r) => (
+        <li class="role">
+          <h3>{r.title}</h3>
+          <p class="muted">
+            {r.org}{r.location && `, ${r.location}`} · {r.period}
+          </p>
+          <p>{r.summary}</p>
+          {r.highlights && (
+            <ul>
+              {r.highlights.map((h) => (
+                <li>{h}</li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+
+  <h2>{copy.education}</h2>
+  <ul class="plain facts">
+    {
+      education.map((e) => (
+        <li>
+          {e.degree} <span class="muted">· {e.school}, {e.year}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>{copy.recognition}</h2>
+  <ul class="plain facts">{recognition.map((r) => <li>{r}</li>)}</ul>
+
+  <h2>{copy.boards}</h2>
+  <ul class="plain facts">{boards.map((b) => <li>{b}</li>)}</ul>
+
+  <h2>{copy.certifications}</h2>
+  <ul class="plain facts">{certifications.map((c) => <li>{c}</li>)}</ul>
+
+  <h2>{copy.languages}</h2>
+  <p>{languages.join(' · ')}</p>
+</Base>
+
+<style>
+  .role {
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule);
+    break-inside: avoid;
+  }
+
+  .role > p {
+    margin: 0.25rem 0 0.5rem;
+  }
+
+  .role ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .facts li {
+    padding: 0.2rem 0;
+  }
+
+  .linkish {
+    font: inherit;
+    font-size: 0.9375rem;
+    color: var(--accent);
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+</style>

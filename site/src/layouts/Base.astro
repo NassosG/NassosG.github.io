@@ -2,25 +2,34 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { site } from '../data/site';
+import { site, profile } from '../data/site';
+import { getLang, basePath, localize, localizedRoutes, langs, langMeta, t } from '../i18n';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const { title, description = site.description } = Astro.props;
-const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · Enterprise Architecture, AI & Cybersecurity`;
+const lang = getLang(Astro.url);
+const me = profile[lang];
+const { title, description = me.description } = Astro.props;
+const pageTitle = title ? `${title} · ${me.name}` : `${me.name} · ${t(lang).homeTitle}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+
+// Translations of this page, for search engines.
+const base = basePath(Astro.url);
+const alternates = localizedRoutes.includes(base)
+  ? langs.map((l) => ({ hreflang: l, href: new URL(localize(base, l), Astro.site).href }))
+  : [];
 
 const personLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: site.name,
-  alternateName: ['Athanasios Galiopoulos', site.fullName],
+  name: me.name,
+  alternateName: [...new Set(['Nassos Galiopoulos', 'Athanasios Galiopoulos', me.fullName, profile.el.name].filter((n) => n !== me.name))],
   url: site.url,
-  jobTitle: site.role,
-  worksFor: { '@type': 'Organization', name: site.org },
+  jobTitle: me.role,
+  worksFor: { '@type': 'Organization', name: me.org },
   alumniOf: ['University of North Texas', 'The University of Texas at San Antonio'],
   image: new URL('/nassos-galiopoulos-headshot.jpg', site.url).href,
   sameAs: Object.values(site.links).filter(Boolean),
@@ -28,30 +37,33 @@ const personLd = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    {alternates.length > 0 && <link rel="alternate" hreflang="x-default" href={alternates[0].href} />}
     <link rel="icon" href="/favicon.ico" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title="Thoughts" href="/rss.xml" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content={langMeta[lang].og} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={new URL('/nassos-galiopoulos-headshot.jpg', site.url)} />
     <meta name="twitter:card" content="summary" />
 
-    <meta name="author" content={site.name} />
+    <meta name="author" content={me.name} />
     <script type="application/ld+json" set:html={JSON.stringify(personLd)} />
     <slot name="head" />
   </head>
   <body>
-    <a class="skip" href="#main">Skip to content</a>
+    <a class="skip" href="#main">{t(lang).skip}</a>
     <Header />
     <main id="main" class="wrap">
       <slot />

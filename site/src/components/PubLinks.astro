@@ -1,14 +1,22 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
+import type { Lang } from '../i18n';
+
 interface Props {
   data: CollectionEntry<'publications'>['data'];
+  lang?: Lang;
 }
 
-const { data } = Astro.props;
+const { data, lang = 'en' } = Astro.props;
+const words = {
+  en: { free: 'arXiv (free)', status: { 'under review': 'under review', preprint: 'preprint' } },
+  el: { free: 'arXiv (ελεύθερη πρόσβαση)', status: { 'under review': 'υπό κρίση', preprint: 'προδημοσίευση' } },
+  de: { free: 'arXiv (frei)', status: { 'under review': 'in Begutachtung', preprint: 'Preprint' } },
+}[lang];
 const links = [
   data.doi && { href: `https://doi.org/${data.doi}`, label: 'DOI' },
-  data.arxiv && { href: `https://arxiv.org/abs/${data.arxiv}`, label: 'arXiv (free)' },
+  data.arxiv && { href: `https://arxiv.org/abs/${data.arxiv}`, label: words.free },
   data.pdf && { href: data.pdf, label: 'PDF' },
   data.url && { href: data.url, label: 'Link' },
 ].filter(Boolean) as { href: string; label: string }[];
@@ -16,7 +24,7 @@ const links = [
 
 <p class="meta">
   <em>{data.venue}</em>{data.volume && ` ${data.volume}`}{data.pages && `, ${data.pages}`}, {data.year}
-  {data.status !== 'published' && <span class="muted"> · {data.status}</span>}
+  {data.status !== 'published' && <span class="muted"> · {words.status[data.status]}</span>}
   {
     links.map((l) => (
       <>
