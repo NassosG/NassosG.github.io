@@ -1,0 +1,158 @@
+/* limur — less is more. One stylesheet, a handful of tokens. */
+
+:root {
+  --bg: #fbfaf8;
+  --fg: #1c1c1a;
+  --muted: #6b6a66;
+  --rule: #e6e3dd;
+  --accent: #2f5d50;
+
+  --serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+  --measure: 42rem;
+  --space: clamp(1rem, 0.8rem + 1vw, 1.5rem);
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #141413;
+    --fg: #ecebe7;
+    --muted: #9c9a94;
+    --rule: #2b2a28;
+    --accent: #8cc2b0;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font: 1.0625rem/1.65 var(--sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: 0 var(--space);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2rem, 1.6rem + 2vw, 2.75rem);
+  margin: 0 0 0.5rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 3rem 0 1rem;
+}
+
+h3 {
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.lede {
+  font-size: 1.25rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.plain {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2.5rem 0;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+}
+
+.skip:focus {
+  left: var(--space);
+  top: var(--space);
+  background: var(--bg);
+  padding: 0.5rem 1rem;
+}
+
+@media print {
+  :root {
+    --bg: #fff;
+    --fg: #000;
+    --muted: #444;
+    --rule: #ccc;
+    --accent: #000;
+  }
+
+  header nav,
+  footer,
+  .skip,
+  .print-hide {
+    display: none;
+  }
+
+  body {
+    font-size: 10.5pt;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  h2 {
+    margin-top: 1.5rem;
+  }
+}

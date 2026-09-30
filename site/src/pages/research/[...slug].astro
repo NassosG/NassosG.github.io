@@ -1,0 +1,36 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import PubLinks from '../../components/PubLinks.astro';
+import { getPublications } from '../../lib/publications';
+
+export async function getStaticPaths() {
+  const pubs = await getPublications();
+  return pubs.map((pub) => ({ params: { slug: pub.id }, props: { pub } }));
+}
+
+const { pub } = Astro.props;
+const { Content } = await render(pub);
+---
+
+<Base title={pub.data.title} description={`${pub.data.venue}, ${pub.data.year}. ${pub.data.authors}`}>
+  <article>
+    <h1 class="title">{pub.data.title}</h1>
+    <p class="muted">{pub.data.authors}</p>
+    <PubLinks data={pub.data} />
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+  <p><a href="/research/">← All research</a></p>
+</Base>
+
+<style>
+  .title {
+    font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem);
+  }
+
+  .prose {
+    margin-top: 2rem;
+  }
+</style>

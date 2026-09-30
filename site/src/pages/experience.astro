@@ -1,0 +1,94 @@
+---
+import Base from '../layouts/Base.astro';
+import {
+  roles,
+  education,
+  recognition,
+  boards,
+  certifications,
+  languages,
+} from '../data/experience';
+---
+
+<Base title="Experience" description="20+ years leading technology in higher education and industry.">
+  <h1>Experience</h1>
+  <p class="lede">20+ years turning complex technology into secure, reliable platforms.</p>
+  <p class="print-hide"><button type="button" class="linkish" onclick="window.print()">Print or save as PDF</button></p>
+
+  <ol class="plain">
+    {
+      roles.map((r) => (
+        <li class="role">
+          <h3>{r.title}</h3>
+          <p class="muted">
+            {r.org} · {r.period}
+          </p>
+          <p>{r.summary}</p>
+          {r.highlights && (
+            <ul>
+              {r.highlights.map((h) => (
+                <li>{h}</li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+
+  <h2>Education</h2>
+  <ul class="plain facts">
+    {
+      education.map((e) => (
+        <li>
+          {e.degree} <span class="muted">· {e.school}, {e.year}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>Recognition</h2>
+  <ul class="plain facts">{recognition.map((r) => <li>{r}</li>)}</ul>
+
+  <h2>Boards & advisory</h2>
+  <ul class="plain facts">{boards.map((b) => <li>{b}</li>)}</ul>
+
+  <h2>Certifications</h2>
+  <ul class="plain facts">{certifications.map((c) => <li>{c}</li>)}</ul>
+
+  <h2>Languages</h2>
+  <p>{languages.join(' · ')}</p>
+</Base>
+
+<style>
+  .role {
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule);
+    break-inside: avoid;
+  }
+
+  .role > p {
+    margin: 0.25rem 0 0.5rem;
+  }
+
+  .role ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  .facts li {
+    padding: 0.2rem 0;
+  }
+
+  .linkish {
+    font: inherit;
+    font-size: 0.9375rem;
+    color: var(--accent);
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+</style>

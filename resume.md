@@ -47,7 +47,8 @@ Shaped technology strategy for three UNT campuses, unified collaboration, and me
 ## Certifications & Clearances
 
 - MIT Sloan School of Management: Mastering Design Thinking (2020)
-- FBI Citizens Academy, Secret Clearance: US94066740
+- FBI Citizens Academy
+- Active Secret Clearance
 - Microsoft Certified Technology Specialist (MCTS)
 - ITIL Foundations
 

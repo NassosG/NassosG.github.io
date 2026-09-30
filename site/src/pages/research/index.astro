@@ -1,0 +1,98 @@
+---
+import Base from '../../layouts/Base.astro';
+import PubLinks from '../../components/PubLinks.astro';
+import { site } from '../../data/site';
+import { getPublications } from '../../lib/publications';
+
+const pubs = await getPublications();
+
+const areas = [
+  {
+    title: 'Actionable threat intelligence',
+    text: 'Turning security signals into decisions defenders can act on quickly and explain afterward.',
+  },
+  {
+    title: 'LLM-enabled phishing: attack and defense',
+    text: 'How large language models change phishing inside large organizations, and detection and defense frameworks that keep pace.',
+  },
+  {
+    title: 'Bounded autonomy for AI agents',
+    text: 'As autonomous as possible, as bounded as necessary.',
+  },
+  {
+    title: 'Secure, evolvable enterprise architecture',
+    text: 'Reference architectures that span business, data, applications, AI, and infrastructure and still leave room to change.',
+  },
+];
+---
+
+<Base title="Research" description="Research on threat intelligence, LLM-driven phishing, AI agents, and enterprise architecture.">
+  <h1>Research</h1>
+  <p class="lede">Ph.D. candidate in Cybersecurity and AI at The University of Texas at San Antonio.</p>
+
+  <h2>Areas of focus</h2>
+  <dl class="areas">
+    {
+      areas.map((a) => (
+        <>
+          <dt>{a.title}</dt>
+          <dd>{a.text}</dd>
+        </>
+      ))
+    }
+  </dl>
+
+  <h2>Publications</h2>
+  <ol class="plain pubs">
+    {
+      pubs.map((p) => (
+        <li>
+          <h3>
+            <a href={`/research/${p.id}/`}>{p.data.title}</a>
+          </h3>
+          <p class="muted">{p.data.authors}</p>
+          <PubLinks data={p.data} />
+        </li>
+      ))
+    }
+  </ol>
+
+  <p class="profiles">
+    <a href={site.links.scholar}>Google Scholar</a> · <a href={site.links.orcid}>ORCID</a>
+  </p>
+</Base>
+
+<style>
+  .areas dt {
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    margin-top: 1rem;
+  }
+
+  .areas dd {
+    margin: 0.25rem 0 0;
+    color: var(--muted);
+  }
+
+  .pubs li {
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .pubs h3 a {
+    color: var(--fg);
+    text-decoration: none;
+  }
+
+  .pubs h3 a:hover {
+    text-decoration: underline;
+  }
+
+  .pubs p {
+    margin: 0.25rem 0 0;
+  }
+
+  .profiles {
+    margin-top: 1.5rem;
+  }
+</style>

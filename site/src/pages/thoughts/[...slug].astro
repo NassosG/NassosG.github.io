@@ -1,0 +1,37 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getThoughts, formatDate } from '../../lib/thoughts';
+
+export async function getStaticPaths() {
+  const posts = await getThoughts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Base title={post.data.title} description={post.data.description}>
+  <article>
+    <h1>{post.data.title}</h1>
+    <p class="muted"><time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time></p>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+  <p><a href="/thoughts/">← All thoughts</a></p>
+</Base>
+
+<style>
+  .prose {
+    margin-top: 2rem;
+  }
+
+  .prose :global(blockquote) {
+    margin: 1.5rem 0;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent);
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,58 @@
+---
+import { site, nav } from '../data/site';
+import { getThoughts } from '../lib/thoughts';
+
+const path = Astro.url.pathname;
+// Less is more: Thoughts stays out of the menu until something is published.
+const hasThoughts = (await getThoughts()).length > 0;
+const items = nav.filter((item) => item.href !== '/thoughts/' || hasThoughts);
+---
+
+<header class="wrap">
+  <a class="name" href="/">{site.name}</a>
+  <nav aria-label="Main">
+    {
+      items.map((item) => (
+        <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<style>
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 1.5rem;
+    padding-top: 2rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .name {
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    color: var(--fg);
+    text-decoration: none;
+  }
+
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    font-size: 0.9375rem;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  nav a:hover,
+  nav a[aria-current='page'] {
+    color: var(--fg);
+  }
+</style>
