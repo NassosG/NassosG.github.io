@@ -1,14 +1,13 @@
 // C. P. Cavafy, «Ιθάκη» (1911). The Greek text is in the public domain.
-// The English lines are a short excerpt from the Keeley–Sherrard translation (see credits on the page);
-// the full translation is linked, not reproduced.
-export type Line = { el: string; en?: string };
+// English translations are linked from the page, not reproduced.
+export type Line = { el: string };
 
 // Greek text as supplied by Nassos (standard edition wording and spelling).
 export const stanzas: Line[][] = [
   [
-    { el: "Σα βγεις στον πηγαιμό για την Ιθάκη,", en: "As you set out for Ithaka" },
-    { el: "να εύχεσαι νάναι μακρύς ο δρόμος,", en: "hope the voyage is a long one," },
-    { el: "γεμάτος περιπέτειες, γεμάτος γνώσεις.", en: "full of adventure, full of discovery." },
+    { el: "Σα βγεις στον πηγαιμό για την Ιθάκη," },
+    { el: "να εύχεσαι νάναι μακρύς ο δρόμος," },
+    { el: "γεμάτος περιπέτειες, γεμάτος γνώσεις." },
     { el: "Τους Λαιστρυγόνας και τους Κύκλωπας," },
     { el: "τον θυμωμένο Ποσειδώνα μη φοβάσαι," },
     { el: "τέτοια στον δρόμο σου ποτέ σου δεν θα βρεις," },
@@ -42,8 +41,8 @@ export const stanzas: Line[][] = [
     { el: "μη προσδοκώντας πλούτη να σε δώσει η Ιθάκη." },
   ],
   [
-    { el: "Η Ιθάκη σ'έδωσε τ' ωραίο ταξείδι.", en: "Ithaka gave you the marvelous journey." },
-    { el: "Χωρίς αυτήν δεν θάβγαινες στον δρόμο.", en: "Without her you would not have set out." },
+    { el: "Η Ιθάκη σ'έδωσε τ' ωραίο ταξείδι." },
+    { el: "Χωρίς αυτήν δεν θάβγαινες στον δρόμο." },
     { el: "Άλλα δεν έχει να σε δώσει πια." },
   ],
   [
@@ -54,3 +53,4 @@ export const stanzas: Line[][] = [
 ];
 
 export const archiveUrl = 'https://www.onassis.org/initiatives/cavafy-archive/the-canon/ithaka';
+export const valassopouloUrl = 'https://cavafy.onassis.org/object/ithaca/';
