@@ -63,7 +63,7 @@ const ui = {
     langSwitch: 'Sprache',
     skip: 'Zum Inhalt springen',
     email: 'E-Mail',
-    limurTitle: 'Weniger ist mehr',
+    limurTitle: 'Weniger is mehr',
     homeTitle: 'Unternehmensarchitektur, KI & Cybersicherheit',
     englishOnly: '(auf Englisch)',
   },
