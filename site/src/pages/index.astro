@@ -41,6 +41,15 @@ import headshot from '../assets/headshot.webp';
     decisions you can explain.
   </p>
 
+  <figure class="epigraph">
+    <blockquote lang="en">Ask that your way be long.</blockquote>
+    <figcaption>
+      C. P. Cavafy,{' '}
+      <cite><a href="https://www.onassis.org/initiatives/cavafy-archive/the-canon/ithaka">Ithaka</a></cite>{' '}
+      (1911)
+    </figcaption>
+  </figure>
+
   <p class="more"><a href="/research/">Research</a> · <a href="/experience/">Experience</a> · <a href="/speaking/">Speaking</a></p>
 </Base>
 
@@ -76,6 +85,26 @@ import headshot from '../assets/headshot.webp';
 
   .lessons li {
     margin-bottom: 0.25rem;
+  }
+
+  .epigraph {
+    margin: 3rem 0 2rem;
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--accent);
+  }
+
+  .epigraph blockquote {
+    margin: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.375rem;
+    line-height: 1.4;
+  }
+
+  .epigraph figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.9375rem;
+    color: var(--muted);
   }
 
   .more {
