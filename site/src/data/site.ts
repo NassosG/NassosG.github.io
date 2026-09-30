@@ -27,9 +27,3 @@ export const nav = [
   { href: '/contact/', label: 'Contact' },
 ];
 
-// The questions that drive the work, shown on the home and research pages.
-export const questions = [
-  'How do we architect a secure enterprise across business, data, applications, AI, and infrastructure while allowing it to evolve?',
-  'How do systems thinking, evidence, bounded autonomy, and human judgment fit together in decisions we can explain and defend?',
-  'What should an AI agent be allowed to do, how do we verify its actions, and how do we prevent fragmented systems and uncontrolled agent growth?',
-];

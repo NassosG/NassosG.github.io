@@ -22,7 +22,7 @@ item appears once the first post is published. Set `draft: true` to keep a post 
 
 | What | Where |
 |---|---|
-| Name, role, email, links, key questions | `src/data/site.ts` |
+| Name, role, email, links | `src/data/site.ts` |
 | Experience, education, boards, certifications | `src/data/experience.ts` |
 | Speaker bio, topics, talks | `src/data/speaking.ts` |
 | Page text | `src/pages/` |

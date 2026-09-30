@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
-import Questions from '../components/Questions.astro';
 import { site } from '../data/site';
 import headshot from '../assets/headshot.webp';
 ---
@@ -33,18 +32,16 @@ import headshot from '../assets/headshot.webp';
   <p>
     Before The Texas A&amp;M University System, I spent seven years as CTO and Deputy CIO at UT San
     Antonio, where the work that mattered most was the work nobody noticed. I am also a Ph.D.
-    candidate in Cybersecurity and AI at UTSA. <a href="/experience/">Experience →</a>
+    candidate in Cybersecurity and AI at UTSA.
   </p>
-
-  <h2>Questions I work on</h2>
-  <Questions />
-  <p class="more"><a href="/research/">Research →</a></p>
 
   <h2>Why limur</h2>
   <p>
     <em>Limur</em> is short for <strong>less is more</strong>: fewer systems, clearer boundaries,
     decisions you can explain.
   </p>
+
+  <p class="more"><a href="/research/">Research</a> · <a href="/experience/">Experience</a> · <a href="/speaking/">Speaking</a></p>
 </Base>
 
 <style>

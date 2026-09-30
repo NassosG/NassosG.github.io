@@ -1,6 +1,5 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Questions from '../../components/Questions.astro';
 import PubLinks from '../../components/PubLinks.astro';
 import { site } from '../../data/site';
 import { getPublications } from '../../lib/publications';
@@ -18,7 +17,7 @@ const areas = [
   },
   {
     title: 'Bounded autonomy for AI agents',
-    text: 'What an agent should be allowed to do, how its actions are verified, and how to prevent fragmented systems and uncontrolled agent growth.',
+    text: 'Giving AI agents enough room to be useful, with actions that stay bounded, verifiable, and accountable.',
   },
   {
     title: 'Secure, evolvable enterprise architecture',
@@ -42,9 +41,6 @@ const areas = [
       ))
     }
   </dl>
-
-  <h2>Key questions</h2>
-  <Questions />
 
   <h2>Publications</h2>
   <ol class="plain pubs">
