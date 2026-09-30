@@ -1,0 +1,143 @@
+---
+import Base from '../layouts/Base.astro';
+import { stanzas, archiveUrl, valassopouloUrl } from '../data/ithaka';
+import type { Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+
+const copy = {
+  en: {
+    title: 'Ithaka',
+    description: 'C. P. Cavafy’s Ithaka in the original Greek, with links to English translations.',
+    lede: 'My favorite poem. I believe it is all about the journey.',
+    inEnglish: 'In English',
+    sources: 'Sources',
+  },
+  el: {
+    title: 'Ιθάκη',
+    description: 'Η «Ιθάκη» του Κ. Π. Καβάφη στο πρωτότυπο, με συνδέσμους σε αγγλικές μεταφράσεις.',
+    lede: 'Το αγαπημένο μου ποίημα. Πιστεύω πως έχει να κάνει με το ταξίδι.',
+    inEnglish: 'Στα αγγλικά',
+    sources: 'Πηγές',
+  },
+  de: {
+    title: 'Ithaka',
+    description: 'Konstantinos Kavafis’ „Ithaka“ im griechischen Original, mit Links zu englischen Übersetzungen.',
+    lede: 'Mein Lieblingsgedicht. Ich glaube, es geht ganz um die Reise.',
+    inEnglish: 'Auf Englisch',
+    sources: 'Quellen',
+  },
+}[lang];
+
+const ks = 'Edmund Keeley & Philip Sherrard';
+const ksBook = 'C. P. Cavafy: Collected Poems';
+---
+
+<Base title={copy.title} description={copy.description}>
+  <h1>{copy.title}</h1>
+  <p class="lede">{copy.lede}</p>
+
+  <div class="poem" lang="el">
+    <p class="title">Ιθάκη</p>
+    {
+      stanzas.map((stanza) => (
+        <p class="stanza">
+          {stanza.map((line, i) => (
+            <>
+              {i > 0 && <br />}
+              {line.el}
+            </>
+          ))}
+        </p>
+      ))
+    }
+    <p class="signature">Κωνσταντίνος Π. Καβάφης</p>
+  </div>
+
+  <h2>{copy.inEnglish}</h2>
+  <ul class="plain links">
+    {lang === 'en' && (
+      <>
+        <li><a href={archiveUrl}>Read “Ithaka” in English</a> in the Cavafy Archive, in the translation by Edmund Keeley and Philip Sherrard.</li>
+        <li><a href={valassopouloUrl}>See the first English translation</a>, handwritten by George Valassopoulo, in the Cavafy Archive.</li>
+      </>
+    )}
+    {lang === 'el' && (
+      <>
+        <li><a href={archiveUrl}>Διαβάστε την «Ιθάκη» στα αγγλικά</a> στο Αρχείο Καβάφη, σε μετάφραση Edmund Keeley και Philip Sherrard.</li>
+        <li><a href={valassopouloUrl}>Δείτε την πρώτη αγγλική μετάφραση</a>, χειρόγραφη, του George Valassopoulo, στο Αρχείο Καβάφη.</li>
+      </>
+    )}
+    {lang === 'de' && (
+      <>
+        <li><a href={archiveUrl}>„Ithaka“ auf Englisch lesen</a> im Cavafy-Archiv, in der Übersetzung von Edmund Keeley und Philip Sherrard.</li>
+        <li><a href={valassopouloUrl}>Die erste englische Übersetzung ansehen</a>, handschriftlich von George Valassopoulo, im Cavafy-Archiv.</li>
+      </>
+    )}
+  </ul>
+
+  <h2>{copy.sources}</h2>
+  <ul class="plain sources">
+    {lang === 'en' && (
+      <>
+        <li><strong>Greek original:</strong> C. P. Cavafy, «Ιθάκη» (1911). In the public domain. The Greek text and manuscripts are held by the <a href={archiveUrl}>Cavafy Archive, Onassis Foundation</a>.</li>
+        <li><strong>English translation:</strong> C. P. Cavafy, “Ithaka,” in <cite>{ksBook}</cite>, rev. ed., trans. Edmund Keeley and Philip Sherrard, ed. George Savidis (Princeton University Press, 1992).</li>
+        <li><strong>First English translation:</strong> C. P. Cavafy, “Ithaca,” trans. George Valassopoulo, <cite>The Criterion</cite> 2, no. 8 (July 1924): 431–432.</li>
+        <li><strong>On the home page:</strong> “Ask that your way be long” is from another English translation of the poem.</li>
+      </>
+    )}
+    {lang === 'el' && (
+      <>
+        <li><strong>Πρωτότυπο:</strong> Κ. Π. Καβάφης, «Ιθάκη» (1911). Κοινό κτήμα. Το κείμενο και τα χειρόγραφα φυλάσσονται στο <a href={archiveUrl}>Αρχείο Καβάφη, Ίδρυμα Ωνάση</a>.</li>
+        <li><strong>Αγγλική μετάφραση:</strong> C. P. Cavafy, “Ithaka,” στο <cite>{ksBook}</cite>, αναθ. έκδ., μτφρ. {ks}, επιμ. George Savidis (Princeton University Press, 1992).</li>
+        <li><strong>Πρώτη αγγλική μετάφραση:</strong> C. P. Cavafy, “Ithaca,” μτφρ. George Valassopoulo, <cite>The Criterion</cite> 2, αρ. 8 (Ιούλιος 1924): 431–432.</li>
+      </>
+    )}
+    {lang === 'de' && (
+      <>
+        <li><strong>Griechisches Original:</strong> K. P. Kavafis, «Ιθάκη» (1911). Gemeinfrei. Text und Manuskripte befinden sich im <a href={archiveUrl}>Cavafy-Archiv der Onassis-Stiftung</a>.</li>
+        <li><strong>Englische Übersetzung:</strong> C. P. Cavafy, “Ithaka,” in <cite>{ksBook}</cite>, überarb. Ausg., übers. von {ks}, hg. von George Savidis (Princeton University Press, 1992).</li>
+        <li><strong>Erste englische Übersetzung:</strong> C. P. Cavafy, “Ithaca,” übers. von George Valassopoulo, <cite>The Criterion</cite> 2, Nr. 8 (Juli 1924): 431–432.</li>
+        <li><strong>Auf der Startseite:</strong> Der Vers „Wünsch dir, dass der Weg lang sei“ ist eine eigene Übertragung.</li>
+      </>
+    )}
+  </ul>
+</Base>
+
+<style>
+  .poem {
+    margin: 2.5rem 0 1rem;
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    line-height: 1.6;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .stanza {
+    margin: 0 0 1.4em;
+  }
+
+  .signature {
+    margin-top: 2rem;
+    font-family: var(--sans);
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+
+  .links li,
+  .sources li {
+    padding: 0.4rem 0;
+  }
+
+  .sources li {
+    font-size: 0.9375rem;
+  }
+</style>

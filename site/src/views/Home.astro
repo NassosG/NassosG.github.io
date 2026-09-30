@@ -1,0 +1,178 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { profile } from '../data/site';
+import { localize, type Lang } from '../i18n';
+import headshot from '../assets/headshot.webp';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const me = profile[lang];
+
+const copy = {
+  en: {
+    portrait: `Portrait of ${me.name}`,
+    lede: 'Hellenic by birth. Texan by choice. Architect by discipline.',
+    lessonsIntro: 'Three things I’ve learned in two decades of leading technology in higher education:',
+    lessons: [
+      'The campus closest to the problem usually has the best answer. Listen first.',
+      'AI will not replace judgment. It will expose whether you had any.',
+      'The point of architecture is not to be admired. It is to be load-bearing.',
+    ],
+    before:
+      'Before The Texas A&M University System, I spent seven years as CTO and Deputy CIO at UT San Antonio, where the work that mattered most was the work nobody noticed. I am also a Ph.D. candidate in Cybersecurity and AI at UTSA.',
+    whyTitle: 'Why limur',
+    why: ['is short for', 'less is more', ': fewer systems, clearer boundaries, decisions you can explain.'],
+    epigraph: 'Ask that your way be long.',
+    epigraphLang: 'en',
+    poet: 'C. P. Cavafy',
+    poem: 'Ithaka',
+    more: { research: 'Research', experience: 'Experience', speaking: 'Speaking' },
+  },
+  el: {
+    portrait: `Πορτρέτο του ${me.name}`,
+    lede: 'Έλληνας εκ γενετής. Τεξανός από επιλογή. Αρχιτέκτονας στην πράξη.',
+    lessonsIntro: 'Τρία πράγματα που έμαθα σε δύο δεκαετίες ηγεσίας στην τεχνολογία της ανώτατης εκπαίδευσης:',
+    lessons: [
+      'Η πανεπιστημιούπολη που βρίσκεται πιο κοντά στο πρόβλημα έχει συνήθως την καλύτερη απάντηση. Πρώτα άκου.',
+      'Η τεχνητή νοημοσύνη δεν θα αντικαταστήσει την κρίση. Θα αποκαλύψει αν είχες ποτέ.',
+      'Ο σκοπός της αρχιτεκτονικής δεν είναι να τη θαυμάζουν. Είναι να σηκώνει το βάρος.',
+    ],
+    before:
+      'Πριν από το Texas A&M University System, υπηρέτησα επτά χρόνια ως CTO και Αναπληρωτής CIO στο UT San Antonio, όπου η δουλειά που μετρούσε περισσότερο ήταν εκείνη που δεν πρόσεξε κανείς. Είμαι επίσης υποψήφιος διδάκτορας Κυβερνοασφάλειας και Τεχνητής Νοημοσύνης στο UTSA.',
+    whyTitle: 'Γιατί limur',
+    why: ['σημαίνει', 'less is more', ', «το λιγότερο είναι περισσότερο»: λιγότερα συστήματα, σαφέστερα όρια, αποφάσεις που μπορείς να εξηγήσεις.'],
+    epigraph: 'Να εύχεσαι νάναι μακρύς ο δρόμος.',
+    epigraphLang: 'el',
+    poet: 'Κ. Π. Καβάφης',
+    poem: 'Ιθάκη',
+    more: { research: 'Έρευνα', experience: 'Εμπειρία', speaking: 'Ομιλίες' },
+  },
+  de: {
+    portrait: `Porträt von ${me.name}`,
+    lede: 'Grieche von Geburt. Texaner aus freier Wahl. Architekt aus Disziplin.',
+    lessonsIntro: 'Drei Dinge, die ich in zwei Jahrzehnten als Technologieverantwortlicher im Hochschulwesen gelernt habe:',
+    lessons: [
+      'Der Campus, der dem Problem am nächsten ist, hat meist die beste Antwort. Zuerst zuhören.',
+      'KI wird Urteilsvermögen nicht ersetzen. Sie wird offenlegen, ob man je welches hatte.',
+      'Architektur ist nicht dazu da, bewundert zu werden. Sie muss tragen.',
+    ],
+    before:
+      'Vor dem Texas A&M University System war ich sieben Jahre CTO und Deputy CIO an der UT San Antonio, wo die wichtigste Arbeit die war, die niemand bemerkte. Außerdem bin ich Doktorand in Cybersicherheit und KI an der UTSA.',
+    whyTitle: 'Warum limur',
+    why: ['steht für', 'less is more', ', „weniger ist mehr“: weniger Systeme, klarere Grenzen, Entscheidungen, die man erklären kann.'],
+    epigraph: 'Wünsch dir, dass der Weg lang sei.',
+    epigraphLang: 'de',
+    poet: 'K. P. Kavafis',
+    poem: 'Ithaka',
+    more: { research: 'Forschung', experience: 'Werdegang', speaking: 'Vorträge' },
+  },
+}[lang];
+---
+
+<Base>
+  <section class="intro">
+    <Image src={headshot} alt={copy.portrait} width={240} densities={[1, 2]} loading="eager" class="portrait" />
+    <div>
+      <h1>{me.name}</h1>
+      <p class="role">{me.role}<br /><span class="muted">{me.org}</span></p>
+    </div>
+  </section>
+
+  <p class="lede">{copy.lede}</p>
+
+  <p>{copy.lessonsIntro}</p>
+  <ul class="lessons">
+    {copy.lessons.map((l) => <li>{l}</li>)}
+  </ul>
+  <p>{copy.before}</p>
+
+  <h2>{copy.whyTitle}</h2>
+  <p>
+    <em>Limur</em> {copy.why[0]} <strong lang="en">{copy.why[1]}</strong>{copy.why[2]}
+  </p>
+
+  <figure class="epigraph">
+    <blockquote lang={copy.epigraphLang}>{copy.epigraph}</blockquote>
+    <figcaption>
+      {copy.poet},{' '}
+      <cite><a href={localize('/ithaka/', lang)}>{copy.poem}</a></cite>{' '}
+      (1911)
+    </figcaption>
+  </figure>
+
+  <p class="more">
+    <a href={localize('/research/', lang)}>{copy.more.research}</a> ·{' '}
+    <a href={localize('/experience/', lang)}>{copy.more.experience}</a> ·{' '}
+    <a href={localize('/speaking/', lang)}>{copy.more.speaking}</a>
+  </p>
+</Base>
+
+<style>
+  .intro {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .portrait {
+    width: 7.5rem;
+    height: 7.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 25%;
+    flex-shrink: 0;
+  }
+
+  .intro h1 {
+    margin-bottom: 0.25rem;
+  }
+
+  .role {
+    margin: 0;
+  }
+
+  .lessons {
+    padding-left: 1.25rem;
+    margin: 0 0 1rem;
+  }
+
+  .lessons li {
+    margin-bottom: 0.25rem;
+  }
+
+  .epigraph {
+    margin: 3rem 0 2rem;
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--accent);
+  }
+
+  .epigraph blockquote {
+    margin: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.375rem;
+    line-height: 1.4;
+  }
+
+  .epigraph figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+
+  .more {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 30rem) {
+    .intro {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

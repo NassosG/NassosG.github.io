@@ -1,0 +1,155 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { profile } from '../data/site';
+import { speaking } from '../data/speaking';
+import { localize, type Lang } from '../i18n';
+import headshot from '../assets/headshot.webp';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const { bio, topics, appearances } = speaking[lang];
+const name = profile[lang].name;
+
+const copy = {
+  en: {
+    title: 'Speaking & Media',
+    description: 'Talks, media, topics, and a bio and headshot for event organizers.',
+    lede: 'Enterprise architecture, AI governance, and cybersecurity — for boards, campuses, and industry.',
+    topics: 'Topics',
+    talks: 'Talks & media',
+    organizers: 'For organizers',
+    headshotAlt: `Headshot of ${name}`,
+    download: 'Download headshot',
+    copyBio: 'Copy bio',
+    copied: 'Copied',
+    copyFail: 'Select the text to copy',
+    invite: 'Invite me to speak',
+  },
+  el: {
+    title: 'Ομιλίες και ΜΜΕ',
+    description: 'Ομιλίες, δημοσιεύματα, θεματολογία, καθώς και βιογραφικό και φωτογραφία για διοργανωτές.',
+    lede: 'Αρχιτεκτονική επιχείρησης, διακυβέρνηση της τεχνητής νοημοσύνης και κυβερνοασφάλεια — για διοικητικά συμβούλια, πανεπιστήμια και τη βιομηχανία.',
+    topics: 'Θεματολογία',
+    talks: 'Ομιλίες και δημοσιεύματα',
+    organizers: 'Για διοργανωτές',
+    headshotAlt: `Φωτογραφία του ${name}`,
+    download: 'Λήψη φωτογραφίας',
+    copyBio: 'Αντιγραφή βιογραφικού',
+    copied: 'Αντιγράφηκε',
+    copyFail: 'Επιλέξτε το κείμενο για αντιγραφή',
+    invite: 'Προσκαλέστε με να μιλήσω',
+  },
+  de: {
+    title: 'Vorträge & Medien',
+    description: 'Vorträge, Medien, Themen sowie Kurzbiografie und Porträt für Veranstalter.',
+    lede: 'Unternehmensarchitektur, KI-Governance und Cybersicherheit – für Vorstände, Hochschulen und die Industrie.',
+    topics: 'Themen',
+    talks: 'Vorträge & Beiträge',
+    organizers: 'Für Veranstalter',
+    headshotAlt: `Porträt von ${name}`,
+    download: 'Porträt herunterladen',
+    copyBio: 'Kurzbiografie kopieren',
+    copied: 'Kopiert',
+    copyFail: 'Text zum Kopieren markieren',
+    invite: 'Als Redner anfragen',
+  },
+}[lang];
+---
+
+<Base title={copy.title} description={copy.description}>
+  <h1>{copy.title}</h1>
+  <p class="lede">{copy.lede}</p>
+
+  <h2>{copy.topics}</h2>
+  <ul>{topics.map((topic) => <li>{topic}</li>)}</ul>
+
+  <h2>{copy.talks}</h2>
+  <ol class="plain appearances">
+    {
+      appearances.map((a) => (
+        <li>
+          <h3>{a.link ? <a href={a.link}>{a.title}</a> : a.title}</h3>
+          <p class="muted">
+            {a.venue}
+            {a.year && ` · ${a.year}`}
+          </p>
+        </li>
+      ))
+    }
+  </ol>
+
+  <h2>{copy.organizers}</h2>
+  <div class="kit">
+    <Image src={headshot} alt={copy.headshotAlt} width={200} densities={[1, 2]} class="shot" />
+    <div>
+      <p id="bio">{bio}</p>
+      <p>
+        <a href="/nassos-galiopoulos-headshot.jpg" download>{copy.download}</a>{' · '}
+        <button type="button" class="linkish" data-copy="bio" data-label={copy.copyBio} data-done={copy.copied} data-fail={copy.copyFail}>
+          {copy.copyBio}
+        </button>{' · '}
+        <a href={localize('/contact/', lang)}>{copy.invite}</a>
+      </p>
+    </div>
+  </div>
+</Base>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const text = document.getElementById(btn.dataset.copy!)?.textContent ?? '';
+      try {
+        await navigator.clipboard.writeText(text.trim());
+        btn.textContent = btn.dataset.done!;
+        setTimeout(() => (btn.textContent = btn.dataset.label!), 2000);
+      } catch {
+        btn.textContent = btn.dataset.fail!;
+      }
+    });
+  });
+</script>
+
+<style>
+  .appearances li {
+    padding: 1rem 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .appearances p {
+    margin: 0.25rem 0 0;
+  }
+
+  .kit {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .shot {
+    width: 8rem;
+    height: auto;
+    border-radius: 4px;
+  }
+
+  .linkish {
+    font: inherit;
+    color: var(--accent);
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  @media (max-width: 30rem) {
+    .kit {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,15 +1,8 @@
-// Single source of truth for identity and navigation.
+import type { Lang } from '../i18n';
+
+// Identity and links: the same in every language.
 export const site = {
-  name: 'Nassos Galiopoulos',
-  fullName: 'Athanasios (Nassos) Galiopoulos',
-  role: 'Executive Director of Enterprise Architecture',
-  org: 'The Texas A&M University System',
-  tagline: 'Enterprise architect, technology executive and AI & cybersecurity researcher.',
-  motto: 'Socratic questions, Spartan discipline, Olympic delivery.',
-  description:
-    'Nassos Galiopoulos is Executive Director of Enterprise Architecture at The Texas A&M University System and a Ph.D. candidate in Cybersecurity and AI at UTSA.',
   url: 'https://limur.ai',
-  location: 'Texas',
   email: 'NassosG@outlook.com',
   links: {
     linkedin: 'https://www.linkedin.com/in/nassosg',
@@ -19,11 +12,38 @@ export const site = {
   },
 };
 
-export const nav = [
-  { href: '/research/', label: 'Research' },
-  { href: '/experience/', label: 'Experience' },
-  { href: '/thoughts/', label: 'Thoughts' },
-  { href: '/speaking/', label: 'Speaking' },
-  { href: '/contact/', label: 'Contact' },
-];
+// Everything that changes with the language.
+export const profile: Record<
+  Lang,
+  { name: string; fullName: string; role: string; org: string; location: string; description: string }
+> = {
+  en: {
+    name: 'Nassos Galiopoulos',
+    fullName: 'Athanasios (Nassos) Galiopoulos',
+    role: 'Executive Director of Enterprise Architecture',
+    org: 'The Texas A&M University System',
+    location: 'Texas',
+    description:
+      'Nassos Galiopoulos is Executive Director of Enterprise Architecture at The Texas A&M University System and a Ph.D. candidate in Cybersecurity and AI at UTSA.',
+  },
+  el: {
+    name: 'Νάσος Γαλιόπουλος',
+    fullName: 'Αθανάσιος (Νάσος) Γαλιόπουλος',
+    role: 'Εκτελεστικός Διευθυντής Αρχιτεκτονικής Επιχείρησης',
+    org: 'The Texas A&M University System',
+    location: 'Τέξας',
+    description:
+      'Ο Νάσος Γαλιόπουλος είναι Εκτελεστικός Διευθυντής Αρχιτεκτονικής Επιχείρησης στο Texas A&M University System και υποψήφιος διδάκτορας Κυβερνοασφάλειας και Τεχνητής Νοημοσύνης στο UTSA.',
+  },
+  de: {
+    name: 'Nassos Galiopoulos',
+    fullName: 'Athanasios (Nassos) Galiopoulos',
+    role: 'Executive Director of Enterprise Architecture',
+    org: 'The Texas A&M University System',
+    location: 'Texas',
+    description:
+      'Nassos Galiopoulos ist Executive Director of Enterprise Architecture im Texas A&M University System und Doktorand in Cybersicherheit und KI an der UTSA.',
+  },
+};
 
+export const navKeys = ['research', 'experience', 'thoughts', 'speaking', 'contact'] as const;

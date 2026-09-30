@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, profile } from '../data/site';
+import { t, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const me = profile[lang];
+
+const copy = {
+  en: {
+    title: 'Contact',
+    description: `How to reach ${me.name}.`,
+    lede: 'For speaking, advisory, research collaboration, or a good question.',
+    based: 'Based in',
+  },
+  el: {
+    title: 'Επικοινωνία',
+    description: `Πώς να επικοινωνήσετε με τον ${me.name}.`,
+    lede: 'Για ομιλίες, συμβουλευτική, ερευνητική συνεργασία ή μια καλή ερώτηση.',
+    based: 'Έδρα',
+  },
+  de: {
+    title: 'Kontakt',
+    description: `So erreichen Sie ${me.name}.`,
+    lede: 'Für Vorträge, Beratung, Forschungskooperationen oder eine gute Frage.',
+    based: 'Standort',
+  },
+}[lang];
+---
+
+<Base title={copy.title} description={copy.description}>
+  <h1>{copy.title}</h1>
+  <p class="lede">{copy.lede}</p>
+
+  <dl>
+    <dt>{t(lang).email}</dt>
+    <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+    <dt>LinkedIn</dt>
+    <dd><a href={site.links.linkedin} rel="me">linkedin.com/in/nassosg</a></dd>
+    <dt>{copy.based}</dt>
+    <dd>{me.location}</dd>
+  </dl>
+</Base>
+
+<style>
+  dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.75rem 2rem;
+    margin: 0;
+  }
+
+  dt {
+    color: var(--muted);
+  }
+
+  dd {
+    margin: 0;
+  }
+</style>

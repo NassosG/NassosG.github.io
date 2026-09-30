@@ -1,6 +1,8 @@
 ---
-import { site } from '../data/site';
+import { site, profile } from '../data/site';
+import { getLang, t } from '../i18n';
 
+const lang = getLang(Astro.url);
 const labels: Record<string, string> = {
   linkedin: 'LinkedIn',
   scholar: 'Google Scholar',
@@ -13,11 +15,11 @@ const links = Object.entries(site.links).filter(([, href]) => href);
 <footer class="wrap">
   <hr />
   <ul class="plain">
-    {site.email && <li><a href={`mailto:${site.email}`}>Email</a></li>}
+    {site.email && <li><a href={`mailto:${site.email}`}>{t(lang).email}</a></li>}
     {links.map(([key, href]) => <li><a href={href} rel="me">{labels[key]}</a></li>)}
   </ul>
   <p class="muted">
-    © {new Date().getFullYear()} {site.name} · <abbr title="Less is more">limur</abbr>
+    © {new Date().getFullYear()} {profile[lang].name} · <abbr title={t(lang).limurTitle}>limur</abbr>
   </p>
 </footer>
 
