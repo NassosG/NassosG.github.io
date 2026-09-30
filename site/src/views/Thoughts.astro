@@ -1,14 +1,14 @@
 ---
 import Base from '../layouts/Base.astro';
-import { getThoughts } from '../lib/thoughts';
-import { formatDate, type Lang } from '../i18n';
+import { getThoughtsFor, postPath } from '../lib/thoughts';
+import { formatDate, t, type Lang } from '../i18n';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
-const posts = await getThoughts();
+const posts = await getThoughtsFor(lang);
 
 const copy = {
   en: {
@@ -20,13 +20,13 @@ const copy = {
   el: {
     title: 'Σκέψεις',
     description: 'Σύντομα κείμενα για την αρχιτεκτονική, την τεχνητή νοημοσύνη και την κρίση.',
-    lede: 'Σύντομα κείμενα για την αρχιτεκτονική, την τεχνητή νοημοσύνη και την κρίση. Τα κείμενα είναι στα αγγλικά.',
+    lede: 'Σύντομα κείμενα για την αρχιτεκτονική, την τεχνητή νοημοσύνη και την κρίση.',
     none: 'Δεν έχει δημοσιευτεί τίποτα ακόμη.',
   },
   de: {
     title: 'Gedanken',
     description: 'Kurze Essays über Architektur, KI und Urteilsvermögen.',
-    lede: 'Kurze Essays über Architektur, KI und Urteilsvermögen. Die Beiträge sind auf Englisch.',
+    lede: 'Kurze Essays über Architektur, KI und Urteilsvermögen.',
     none: 'Noch nichts veröffentlicht.',
   },
 }[lang];
@@ -41,12 +41,13 @@ const copy = {
       <p class="muted">{copy.none}</p>
     ) : (
       <ol class="plain posts">
-        {posts.map((p) => (
+        {posts.map(({ entry, lang: postLang, ...p }) => (
           <li>
-            <h3 lang="en"><a href={`/thoughts/${p.id}/`}>{p.data.title}</a></h3>
+            <h3 lang={postLang}><a href={postPath({ entry, lang: postLang, ...p })}>{entry.data.title}</a></h3>
             <p class="muted">
-              <time datetime={p.data.date.toISOString()}>{formatDate(p.data.date, lang)}</time> ·{' '}
-              <span lang="en">{p.data.description}</span>
+              <time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date, lang)}</time> ·{' '}
+              <span lang={postLang}>{entry.data.description}</span>
+              {postLang !== lang && <span> {t(lang).englishOnly}</span>}
             </p>
           </li>
         ))}

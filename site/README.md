@@ -18,6 +18,10 @@ file**, paste the template, and commit.
 Same steps in `src/content/thoughts/`, using that folder's `_template.md` (remember `draft: false`). The Thoughts menu
 item appears once the first post is published. Set `draft: true` to keep a post hidden.
 
+To add a Greek or German version of a post, save it with the same file name in
+`src/content/thoughts/el/` or `src/content/thoughts/de/`. The language switcher on the post then
+leads to it. Without a translation, the Greek and German pages show the English post.
+
 ## Edit everything else
 
 The site is in English (`/`), Greek (`/el/`) and German (`/de/`). Each file below holds all three
@@ -32,7 +36,7 @@ languages side by side, under `en`, `el` and `de`; change the text in each one.
 | Menu and small labels | `src/i18n/index.ts` |
 | Colors and type | `src/styles/global.css` |
 
-Papers and Thoughts posts are written once, in English; the Greek and German pages link to them.
+Papers are in English only. Thoughts posts can have translations (see above).
 
 ## Run locally
 

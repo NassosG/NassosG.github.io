@@ -1,0 +1,18 @@
+---
+import Post from '../../../views/Post.astro';
+import { getTranslations, languagesOf, type Thought } from '../../../lib/thoughts';
+
+export async function getStaticPaths() {
+  const posts = await getTranslations();
+  return Promise.all(
+    posts.map(async (post) => ({
+      params: { lang: post.lang, slug: post.slug },
+      props: { post, available: await languagesOf(post.slug) },
+    })),
+  );
+}
+
+const { post, available } = Astro.props as { post: Thought; available: Awaited<ReturnType<typeof languagesOf>> };
+---
+
+<Post post={post} available={available} />
