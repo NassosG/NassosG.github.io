@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro';
+import { roles, education, recognition } from '../data/experience';
+---
+
+<Base title="Experience" description="Twenty years leading technology in higher education and industry.">
+  <h1>Experience</h1>
+  <p class="lede">Twenty years turning complex technology into secure, reliable platforms.</p>
+
+  <ol class="plain">
+    {
+      roles.map((r) => (
+        <li class="role">
+          <h3>{r.title}</h3>
+          <p class="muted">
+            {r.org} · {r.period}
+          </p>
+          <p>{r.summary}</p>
+          {r.highlights && (
+            <ul>
+              {r.highlights.map((h) => (
+                <li>{h}</li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+
+  <h2>Education</h2>
+  <ul class="plain">
+    {
+      education.map((e) => (
+        <li>
+          {e.degree} <span class="muted">· {e.school}, {e.year}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <h2>Recognition & boards</h2>
+  <ul>
+    {recognition.map((r) => <li>{r}</li>)}
+  </ul>
+</Base>
+
+<style>
+  .role {
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .role > p {
+    margin: 0.25rem 0 0.5rem;
+  }
+
+  .role ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+</style>

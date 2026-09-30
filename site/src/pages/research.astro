@@ -1,0 +1,49 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+const pubs = (await getCollection('publications')).sort((a, b) => b.data.year - a.data.year);
+---
+
+<Base title="Research" description="Publications on AI and cybersecurity.">
+  <h1>Research</h1>
+  <p class="lede">Large language models for cybersecurity: attack, defense and automation.</p>
+
+  <ol class="plain pubs">
+    {
+      pubs.map(({ data }) => (
+        <li>
+          <h3>{data.title}</h3>
+          <p class="muted">{data.authors}</p>
+          <p>
+            <em>{data.venue}</em>, {data.year}
+            {data.status !== 'published' && <span class="muted"> · {data.status}</span>}
+            {data.doi && (
+              <>
+                {' · '}
+                <a href={`https://doi.org/${data.doi}`}>DOI</a>
+              </>
+            )}
+            {data.pdf && (
+              <>
+                {' · '}
+                <a href={data.pdf}>PDF</a>
+              </>
+            )}
+          </p>
+        </li>
+      ))
+    }
+  </ol>
+</Base>
+
+<style>
+  .pubs li {
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .pubs p {
+    margin: 0.25rem 0 0;
+  }
+</style>

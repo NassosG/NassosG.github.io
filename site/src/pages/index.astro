@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+
+<Base>
+  <h1>{site.name}</h1>
+  <p class="lede">{site.tagline}</p>
+
+  <!-- TODO: replace with a bio in your own words. -->
+  <p>
+    I lead technology at the University of Texas at San Antonio as Chief Technology Officer and
+    Deputy CIO, where I work on research computing, cybersecurity and enterprise platforms. I am
+    also a Ph.D. candidate researching how large language models can make security operations
+    faster and more adaptive.
+  </p>
+  <p>
+    I believe the best systems — and the best teams — do more with less. That idea gives this site
+    its name: <em>limur</em>, less is more.
+  </p>
+
+  <h2>Now</h2>
+  <ul>
+    <li>Leading technology strategy at UTSA.</li>
+    <li>Researching LLM-driven cybersecurity. <a href="/research/">Publications →</a></li>
+  </ul>
+</Base>
