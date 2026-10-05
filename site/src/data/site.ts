@@ -3,7 +3,7 @@ import type { Lang } from '../i18n';
 // Identity and links: the same in every language.
 export const site = {
   url: 'https://limur.ai',
-  email: 'NassosG@outlook.com',
+  email: 'NassosG@limur.ai',
   links: {
     linkedin: 'https://www.linkedin.com/in/nassosg',
     scholar: 'https://scholar.google.com/citations?user=AH-9jOwAAAAJ',
